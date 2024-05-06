@@ -6,3 +6,4 @@ SpeechRecognition
 soundfile
 pyaudio
 pvporcupine
+sounddevice
