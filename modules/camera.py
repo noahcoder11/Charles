@@ -25,8 +25,6 @@ class Camera:
     def get_snapshot(self):
         ret,frame = self.cap.read()
 
-        self.frames.append(frame)    
-
         return frame
     
     def get_snapshot_base64(self):
