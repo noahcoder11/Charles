@@ -12,10 +12,10 @@ class BrocasArea:
         with self.client.audio.speech.with_streaming_response.create(
             model='tts-1',
             voice='onyx',
-            response_format='mp3',
+            response_format='wav',
             input=text
         ) as audio:
-            audio.stream_to_file('speech.mp3')
-            data, fs = sf.read('speech.mp3')
+            audio.stream_to_file('speech.wav')
+            data, fs = sf.read('speech.wav')
             sd.play(data, fs)
             sd.wait()
