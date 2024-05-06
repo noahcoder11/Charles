@@ -1,5 +1,8 @@
 python-dotenv
 requests
 anthropic
+openai
+SpeechRecognition
+soundfile
 pyaudio
 pvporcupine
