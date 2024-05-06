@@ -7,3 +7,4 @@ soundfile
 pyaudio
 pvporcupine
 opencv-python
+sounddevice

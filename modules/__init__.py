@@ -1,2 +1,4 @@
 from .generator import Generator
-from .speech_recognizer import SpeechRecognizer
+from .wernickes_area import WernickesArea
+from .brocas_area import BrocasArea
+from .wakeword import Wakeword
