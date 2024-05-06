@@ -4,7 +4,7 @@ import config
 from openai import OpenAI
 ssl._create_default_https_context = ssl._create_unverified_context
 
-class SpeechRecognizer:
+class WernickesArea:
     def __init__(self):
         self.recognizer = sr.Recognizer()
         self.client = OpenAI(api_key=config.PROJECT_CONFIG['OPENAI_API_KEY'])
