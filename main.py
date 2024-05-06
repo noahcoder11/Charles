@@ -1,4 +1,7 @@
 from modules import *
+import sounddevice as sd
+
+sd.default.latency = 'low'
 
 wakeword_detector = Wakeword()
 audio = Audio(wakeword_detector.porcupine.sample_rate, wakeword_detector.porcupine.frame_length)

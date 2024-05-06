@@ -1,6 +1,8 @@
 import speech_recognition as sr
 import ssl
 import config
+import soundfile as sf
+import sounddevice as sd
 from openai import OpenAI
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -14,8 +16,9 @@ class WernickesArea:
 
         with sr.Microphone() as source:
             print("Listening...")
-            print(source.list_microphone_names())
-            self.recognizer.adjust_for_ambient_noise(source)
+            data, fs = sf.read('acknowledgement.wav')
+            sd.play(data, fs)
+            sd.wait()
             audio = self.recognizer.listen(source)
             try:
 

@@ -11,7 +11,7 @@ class BrocasArea:
     def speak(self, text):
         with self.client.audio.speech.with_streaming_response.create(
             model='tts-1',
-            voice='onyx',
+            voice='fable',
             response_format='wav',
             input=text
         ) as audio:
