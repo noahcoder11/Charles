@@ -16,9 +16,7 @@ class WernickesArea:
 
         with sr.Microphone() as source:
             print("Listening...")
-            data, fs = sf.read('acknowledgement.wav')
-            sd.play(data, fs)
-            sd.wait()
+            
             audio = self.recognizer.listen(source)
             try:
 
