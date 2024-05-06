@@ -2,7 +2,7 @@ from modules import *
 
 wakeword_detector = Wakeword()
 audio = Audio(wakeword_detector.porcupine.sample_rate, wakeword_detector.porcupine.frame_length)
-camera = Camera(0)
+camera = Camera(1)
 wernickes_area = WernickesArea()
 generator = Generator()
 brocas_area = BrocasArea()
