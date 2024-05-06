@@ -20,7 +20,7 @@ class Camera:
         retval, buffer = cv2.imencode('.jpg', frame)
         jpg_as_text = base64.b64encode(buffer)
         
-        return jpg_as_text
+        return jpg_as_text.decode('utf-8')
 
     def get_snapshot(self):
         ret,frame = self.cap.read()

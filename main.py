@@ -20,11 +20,19 @@ while True:
         #Take a picture
         imageBase64 = camera.get_snapshot_base64()
 
+        print('Picture taken')
+
         #Now do speech recognition
         recognized_text = wernickes_area.get_recognized_text()
 
+        print('Recognized text:', recognized_text)
+
         #Now generate a response
-        response = generator.generate_response(recognized_text, imageBase64)
+        response = generator.generate(recognized_text, imageBase64)
+
+        print('Response:', response)
+
+        print('Speaking')
 
         #Now speak the response
         brocas_area.speak(response)
