@@ -5,7 +5,7 @@ class Wakeword:
     def __init__(self):
         self.porcupine = pvporcupine.create(
             access_key=config.PROJECT_CONFIG['PORCUPINE_ACCESS_KEY'],
-            keyword_paths=config.PROJECT_CONFIG['PORCUPINE_WAKEWORD_FILE_PATH']
+            keyword_paths=[config.PROJECT_CONFIG['PORCUPINE_WAKEWORD_FILE_PATH']]
         )
     
     def process(self, audio_frame):
