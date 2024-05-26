@@ -1,46 +1,99 @@
 from modules import *
 import sounddevice as sd
+from playsound import playsound
+
 
 sd.default.latency = 'low'
 
 wakeword_detector = Wakeword()
 audio = Audio(wakeword_detector.porcupine.sample_rate, wakeword_detector.porcupine.frame_length)
-camera = Camera(1)
+camera = Camera(0)
+
 wernickes_area = WernickesArea()
-generator = Generator()
+#generator = Generator()
 brocas_area = BrocasArea()
 
 audio.create_stream()
 
 camera.start_capture()
 
-while True:
-    frame = audio.get_next_frame()
+print(sd.query_devices())
 
-    if wakeword_detector.process(frame):
-        print("Wakeword Detected")
-        
-        #Take a picture
-        imageBase64 = camera.get_snapshot_base64()
+performance_monitor = PerformanceMonitor()
 
-        print('Picture taken')
+class ProgramState:
+    def __init__(self):
+        self.session = None
+        self.imageBase64 = None
+        self.recognized_text = None
+        self.response = None
+        self.response_stream = None
 
-        #Now do speech recognition
-        recognized_text = wernickes_area.get_recognized_text()
+    def reset(self):
+        self.imageBase64 = None
+        self.recognized_text = None
+        self.response = None
+        self.response_stream = None
 
-        print('Recognized text:', recognized_text)
+@performance_aware(performance_monitor)
+def create_session():
+    return Session()
 
-        #Now generate a response
-        response = generator.generate(recognized_text, imageBase64)
+@performance_aware(performance_monitor)
+def take_picture():
+    return camera.get_snapshot_base64()
 
-        print('Response:', response)
+@performance_aware(performance_monitor)
+def recognize_text():
+    print('Recognizing')
+    text = wernickes_area.get_recognized_text()
+    print('Recognized:', text)
+    return text
 
-        print('Speaking')
+@performance_aware(performance_monitor)
+def add_messages_to_session(session, text, imageBase64):
+    print('Adding message')
+    session.add_text(text) 
+    #TODO: Add image as well
 
-        #Now speak the response
-        brocas_area.speak(response)
+@performance_aware(performance_monitor)
+def start_response_stream(from_session):
+    print('Fetching response')
+    return from_session.get_text_stream()
 
+@performance_aware(performance_monitor)
+def speak_response(response_stream):
+    print('Speaking response')
+    brocas_area.speak(response_stream)
 
+#Begin main program
+print("Beginning main loop")
 
-wakeword_detector.cleanup()
-camera.cleanup()
+playsound('sounds/Charles_Startup.m4a')
+
+try:
+    while True:
+        frame = audio.get_next_frame()
+
+        if wakeword_detector.process(frame):
+            wakeword_detector.cleanup()
+            session = create_session()
+            while True:
+                print('Prompting again')
+
+                imageBase64 = take_picture()
+                text = recognize_text()
+                add_messages_to_session(session, text, imageBase64)
+
+                response_stream = start_response_stream(session)
+                speak_response(response_stream)
+
+                print("\n\n")
+
+            wakeword_detector = Wakeword()
+except KeyboardInterrupt:
+    print('Closing program...')
+    wakeword_detector.cleanup()
+    camera.cleanup()
+    
+    performance_monitor.print_perf_analysis()

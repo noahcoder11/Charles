@@ -11,7 +11,7 @@ class Audio:
         self.audio_stream = self.py_audio.open(rate=self.sample_rate, channels=1, format=pyaudio.paInt16, input=True, frames_per_buffer=self.frame_length)
     
     def get_next_frame(self):
-        pcm = self.audio_stream.read(self.frame_length)
+        pcm = self.audio_stream.read(self.frame_length, exception_on_overflow=False)
         pcm = struct.unpack_from("h" * self.frame_length, pcm)
 
         return pcm

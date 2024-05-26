@@ -2,20 +2,24 @@ from openai import OpenAI
 import config
 import soundfile as sf
 import io
+import time
+import os
 import sounddevice as sd
+from RealtimeTTS import TextToAudioStream, OpenAIEngine, SystemEngine
 
 class BrocasArea:
     def __init__(self):
+        os.environ['OPENAI_API_KEY'] = config.PROJECT_CONFIG['OPENAI_API_KEY']
         self.client = OpenAI(api_key=config.PROJECT_CONFIG['OPENAI_API_KEY'])
+        self.engine = OpenAIEngine(voice='fable')
+        self.tts = TextToAudioStream(self.engine)
 
-    def speak(self, text):
-        with self.client.audio.speech.with_streaming_response.create(
-            model='tts-1',
-            voice='fable',
-            response_format='wav',
-            input=text
-        ) as audio:
-            audio.stream_to_file('speech.wav')
-            data, fs = sf.read('speech.wav')
-            sd.play(data, fs)
-            sd.wait()
+    def speak(self, text_stream):
+        print('Text Stream:', text_stream)
+
+        text = ''
+
+        self.tts.feed(text_stream)
+        self.tts.play()
+
+        print('Done Playing audio')
