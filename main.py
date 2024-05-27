@@ -1,6 +1,6 @@
 from modules import *
 import sounddevice as sd
-from playsounds import playsound
+from playsounds import playsound, perform_audio_output_setup
 
 
 sd.default.latency = 'low'
@@ -69,7 +69,9 @@ def speak_response(response_stream):
 #Begin main program
 print("Beginning main loop")
 
-playsound('sounds/Charles_Startup.m4a')
+perform_audio_output_setup()
+
+playsound('sounds/Charles_Startup.wav')
 print('Finished Playing sound')
 try:
     while True:
