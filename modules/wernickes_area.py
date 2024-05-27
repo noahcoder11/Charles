@@ -12,6 +12,7 @@ class WernickesArea:
         self.recognizer = sr.Recognizer()
         #self.recognizer.energy_threshold = 4000
         self.recognizer.dynamic_energy_threshold = False
+        print('Wernicke')
         self.source = sr.Microphone(0)
         self.source.__enter__()
         self.client = OpenAI(api_key=config.PROJECT_CONFIG['OPENAI_API_KEY'])

@@ -7,9 +7,11 @@ class Audio:
         self.frame_length = frame_length
         self.py_audio = pyaudio.PyAudio()
         self.device = self._find_available_device()
+        print('Initializing PvRecorder')
         self.recorder = PvRecorder(frame_length=frame_length, device_index=self.device)
 
     def create_stream(self):
+        print('Starting recording')
         self.recorder.start()
     
     def get_next_frame(self):
