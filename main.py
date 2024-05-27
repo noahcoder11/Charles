@@ -1,6 +1,6 @@
 from modules import *
 import sounddevice as sd
-from playsound import playsound
+from playsounds import playsound
 
 
 sd.default.latency = 'low'

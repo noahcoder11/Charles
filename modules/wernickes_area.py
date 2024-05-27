@@ -3,7 +3,7 @@ import ssl
 import config
 import soundfile as sf
 import sounddevice as sd
-from playsound import playsound
+from playsounds import playsound
 from openai import OpenAI
 ssl._create_default_https_context = ssl._create_unverified_context
 
