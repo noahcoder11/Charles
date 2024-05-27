@@ -9,3 +9,4 @@ pvporcupine
 opencv-python
 sounddevice
 playsound
+RealtimeTTS
