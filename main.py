@@ -5,15 +5,15 @@ from playsound import playsound
 
 sd.default.latency = 'low'
 
-wakeword_detector = Wakeword()
-audio = Audio(wakeword_detector.porcupine.sample_rate, wakeword_detector.porcupine.frame_length)
+#wakeword_detector = Wakeword()
+#audio = Audio(wakeword_detector.porcupine.sample_rate, wakeword_detector.porcupine.frame_length)
 camera = Camera(0)
 
 wernickes_area = WernickesArea()
 #generator = Generator()
 brocas_area = BrocasArea()
 
-audio.create_stream()
+#audio.create_stream()
 
 camera.start_capture()
 
@@ -73,10 +73,11 @@ playsound('sounds/Charles_Startup.m4a')
 
 try:
     while True:
-        frame = audio.get_next_frame()
-
-        if wakeword_detector.process(frame):
-            wakeword_detector.cleanup()
+        #frame = audio.get_next_frame()
+        start = input('Press any key to start')
+        #if wakeword_detector.process(frame):
+        if True:
+            #wakeword_detector.cleanup()
             session = create_session()
             while True:
                 print('Prompting again')
@@ -90,10 +91,10 @@ try:
 
                 print("\n\n")
 
-            wakeword_detector = Wakeword()
+            #wakeword_detector = Wakeword()
 except KeyboardInterrupt:
     print('Closing program...')
-    wakeword_detector.cleanup()
+    #wakeword_detector.cleanup()
     camera.cleanup()
     
     performance_monitor.print_perf_analysis()
