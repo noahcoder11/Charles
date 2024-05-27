@@ -18,10 +18,9 @@ class Audio:
         raise Exception('Recorder is not recording')
     
     def _find_available_device(self):
-        for i in range(self.py_audio.get_device_count()):
-            dev = self.py_audio.get_device_info_by_index(i)
-            if dev['maxInputChannels'] > 0:
-                print('Device:', dev)
+        devices = PvRecorder.get_available_devices()
+        for i in range(0, len(devices)):
+            if devices[i].find('Scarlett'):
                 return i
         
         raise Exception('No available audio device found')
