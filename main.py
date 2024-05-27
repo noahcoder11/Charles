@@ -70,7 +70,7 @@ def speak_response(response_stream):
 print("Beginning main loop")
 
 playsound('sounds/Charles_Startup.m4a')
-
+print('Finished Playing sound')
 try:
     while True:
         #frame = audio.get_next_frame()

@@ -8,6 +8,6 @@ pyaudio
 pvporcupine
 opencv-python
 sounddevice
-playsound
+pygame
 RealtimeTTS
 pvrecorder
