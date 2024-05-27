@@ -8,7 +8,7 @@ def perform_audio_output_setup():
     success = False
     while not success:
         try:
-            pygame.mixer.music.load('sounds/Charles_Startup.m4a')
+            pygame.mixer.music.load('./sounds/Charles_Startup.wav')
             pygame.mixer.music.play()
 
             uinput = input('Did you hear sound? [y/n] ')

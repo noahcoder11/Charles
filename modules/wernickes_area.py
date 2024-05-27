@@ -20,13 +20,13 @@ class WernickesArea:
     def get_recognized_text(self):
         text = ''
         print("Listening...")
-        playsound('sounds/Charles_Alert.wav')
+        playsound('./sounds/Charles_Alert.wav')
         
         #self.recognizer.adjust_for_ambient_noise(source=source)
         audio = self.recognizer.listen(self.source)
 
         print('Audio captured')
-        playsound('sounds/Charles_end.wav')
+        playsound('./sounds/Charles_end.wav')
 
         try:
             text = self.recognizer.recognize_whisper_api(audio, api_key=config.PROJECT_CONFIG['OPENAI_API_KEY'])
