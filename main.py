@@ -84,9 +84,9 @@ try:
             while True:
                 print('Prompting again')
 
-                imageBase64 = take_picture()
+                #imageBase64 = take_picture()
                 text = recognize_text()
-                add_messages_to_session(session, text, imageBase64)
+                add_messages_to_session(session, text, None)
 
                 response_stream = start_response_stream(session)
                 speak_response(response_stream)
