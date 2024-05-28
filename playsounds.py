@@ -1,27 +1,19 @@
-import pygame
-import time
+import pyaudio
+import wave
 
-pygame.mixer.init()
+pyaudio_instance = pyaudio.PyAudio()
 
-def perform_audio_output_setup():
-    print('Performing audio output setup:')
-    success = False
-    while not success:
-        try:
-            pygame.mixer.music.load('./sounds/Charles_Startup.wav')
-            pygame.mixer.music.play()
+def playsound(sound_file, output_device_index=0):
+    f = wave.open(sound_file, 'rb')
+    out_stream = pyaudio_instance.open(format=pyaudio_instance.get_format_from_width(f.getsampwidth()),
+                    channels=f.getnchannels(),
+                    rate=f.getframerate(),
+                    output=True, output_device_index=output_device_index)
+    
+    data = f.readframes(1024)
+    while data:
+        out_stream.write(data)
+        data = f.readframes(1024)
+    f.close()
+    out_stream.close()
 
-            uinput = input('Did you hear sound? [y/n] ')
-            if uinput.lower() == 'y':
-                success = True
-                break
-        except Exception as e:
-            print('Error:', e)
-        print('Retrying...')
-        time.sleep(1)
-
-def playsound(sound_file):
-    pygame.mixer.music.load(sound_file)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():
-        pygame.time.Clock().tick(10)

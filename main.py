@@ -2,6 +2,41 @@ from modules import *
 import sounddevice as sd
 from playsounds import playsound, perform_audio_output_setup
 
+CHOSEN_INPUT_DEVICE = 0
+CHOSEN_OUTPUT_DEVICE = 0
+
+#First, we want to make sure we're selecting the right audio devices
+print('Available audio devices:')
+print(sd.query_devices())
+print('\n')
+print('Beginning output device selection:')
+output_device_placeholder = 0
+out_device_selected = False
+while not out_device_selected:
+    output_device_placeholder = int(input('Enter an output device index: '))
+    while True:
+        print('- Testing output device...', end='', flush=True)
+        try:
+            playsound('sounds/Charles_Startup.wav', output_device_placeholder)
+            print('done')
+        except Exception as e:
+            print('\nError:', e)
+            continue
+        uinput = input('  -> Did you hear sound? [y/n, r=retry] ')
+        if uinput.lower() == 'y':
+            CHOSEN_OUTPUT_DEVICE = output_device_placeholder
+            out_device_selected = True
+            break
+        elif uinput.lower() == 'r':
+            continue
+        else:
+            print('- Canceling device selection')
+            break
+
+print('Beginning input device selection:')
+CHOSEN_INPUT_DEVICE = int(input('Enter an input device index: '))
+    
+
 
 sd.default.latency = 'low'
 
@@ -9,15 +44,13 @@ sd.default.latency = 'low'
 #audio = Audio(wakeword_detector.porcupine.sample_rate, wakeword_detector.porcupine.frame_length)
 camera = Camera(0)
 
-wernickes_area = WernickesArea()
+wernickes_area = WernickesArea(input_device_index=CHOSEN_INPUT_DEVICE)
 #generator = Generator()
-brocas_area = BrocasArea()
+brocas_area = BrocasArea(output_device_index=CHOSEN_OUTPUT_DEVICE)
 
 #audio.create_stream()
 
 camera.start_capture()
-
-print(sd.query_devices())
 
 performance_monitor = PerformanceMonitor()
 
@@ -68,8 +101,6 @@ def speak_response(response_stream):
 
 #Begin main program
 print("Beginning main loop")
-
-perform_audio_output_setup()
 
 playsound('sounds/Charles_Startup.wav')
 print('Finished Playing sound')

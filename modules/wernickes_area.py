@@ -8,12 +8,11 @@ from openai import OpenAI
 ssl._create_default_https_context = ssl._create_unverified_context
 
 class WernickesArea:
-    def __init__(self):
+    def __init__(self, input_device_index=0):
         self.recognizer = sr.Recognizer()
         #self.recognizer.energy_threshold = 4000
         self.recognizer.dynamic_energy_threshold = False
-        print('Wernicke')
-        self.source = sr.Microphone()
+        self.source = sr.Microphone(input_device_index)
         self.source.__enter__()
         self.client = OpenAI(api_key=config.PROJECT_CONFIG['OPENAI_API_KEY'])
 
