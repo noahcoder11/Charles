@@ -12,13 +12,14 @@ class WernickesArea:
         self.recognizer = sr.Recognizer()
         #self.recognizer.energy_threshold = 4000
         self.recognizer.dynamic_energy_threshold = False
-        self.source = sr.Microphone(input_device_index)
+        #self.source = sr.Microphone(input_device_index)
+        self.input_device_index = input_device_index
         self.output_device_index = output_device_index
         self.client = OpenAI(api_key=config.PROJECT_CONFIG['OPENAI_API_KEY'])
 
     def get_recognized_text(self):
         text = ''
-        with self.source as source:
+        with sr.Microphone(self.input_device_index) as source:
             print("Listening...")
             playsound('./sounds/Charles_Alert.wav', self.output_device_index)
             
