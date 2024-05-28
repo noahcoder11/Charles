@@ -104,9 +104,10 @@ print("Beginning main loop")
 
 playsound('sounds/Charles_Startup.wav', CHOSEN_OUTPUT_DEVICE)
 print('Finished Playing sound')
+
+print('Listening for wake word...')
 try:
     while True:
-        print('Listening for wake word...')
         frame = audio.get_next_frame()
         #start = input('Press any key to start')
         if wakeword_detector.process(frame):
@@ -130,6 +131,7 @@ try:
                 print("\n\n")
             
             audio.create_stream()
+            print('Listening for wake word...')
             #wakeword_detector = Wakeword()
 except KeyboardInterrupt:
     print('Closing program...')
