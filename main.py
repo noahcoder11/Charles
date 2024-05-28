@@ -48,7 +48,7 @@ wernickes_area = WernickesArea(input_device_index=CHOSEN_INPUT_DEVICE, output_de
 #generator = Generator()
 brocas_area = BrocasArea(output_device_index=CHOSEN_OUTPUT_DEVICE)
 
-#audio.create_stream()
+audio.create_stream()
 
 camera.start_capture()
 
