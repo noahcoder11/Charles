@@ -40,11 +40,11 @@ CHOSEN_INPUT_DEVICE = int(input('Enter an input device index: '))
 
 sd.default.latency = 'low'
 
-#wakeword_detector = Wakeword()
-#audio = Audio(wakeword_detector.porcupine.sample_rate, wakeword_detector.porcupine.frame_length)
+wakeword_detector = Wakeword()
+audio = Audio(wakeword_detector.porcupine.sample_rate, wakeword_detector.porcupine.frame_length)
 camera = Camera(0)
 
-wernickes_area = WernickesArea(input_device_index=CHOSEN_INPUT_DEVICE)
+wernickes_area = WernickesArea(input_device_index=CHOSEN_INPUT_DEVICE, output_device_index=CHOSEN_OUTPUT_DEVICE)
 #generator = Generator()
 brocas_area = BrocasArea(output_device_index=CHOSEN_OUTPUT_DEVICE)
 
@@ -102,15 +102,15 @@ def speak_response(response_stream):
 #Begin main program
 print("Beginning main loop")
 
-playsound('sounds/Charles_Startup.wav')
+playsound('sounds/Charles_Startup.wav', CHOSEN_OUTPUT_DEVICE)
 print('Finished Playing sound')
 try:
     while True:
-        #frame = audio.get_next_frame()
-        start = input('Press any key to start')
-        #if wakeword_detector.process(frame):
-        if True:
-            #wakeword_detector.cleanup()
+        frame = audio.get_next_frame()
+        #start = input('Press any key to start')
+        if wakeword_detector.process(frame):
+        #if True:
+            wakeword_detector.cleanup()
             session = create_session()
             while True:
                 print('Prompting again')
@@ -124,10 +124,10 @@ try:
 
                 print("\n\n")
 
-            #wakeword_detector = Wakeword()
+            wakeword_detector = Wakeword()
 except KeyboardInterrupt:
     print('Closing program...')
-    #wakeword_detector.cleanup()
+    wakeword_detector.cleanup()
     camera.cleanup()
     
     performance_monitor.print_perf_analysis()
