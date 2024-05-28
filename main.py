@@ -1,6 +1,6 @@
 from modules import *
 import sounddevice as sd
-from playsounds import playsound, perform_audio_output_setup
+from playsounds import playsound
 
 CHOSEN_INPUT_DEVICE = 0
 CHOSEN_OUTPUT_DEVICE = 0
