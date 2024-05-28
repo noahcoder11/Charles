@@ -106,6 +106,7 @@ playsound('sounds/Charles_Startup.wav', CHOSEN_OUTPUT_DEVICE)
 print('Finished Playing sound')
 try:
     while True:
+        print('Listening for wake word...')
         frame = audio.get_next_frame()
         #start = input('Press any key to start')
         if wakeword_detector.process(frame):
@@ -117,6 +118,10 @@ try:
 
                 #imageBase64 = take_picture()
                 text = recognize_text()
+
+                if len(text.lower().strip()) == 0 or 'goodbye' in text.lower():
+                    break
+
                 add_messages_to_session(session, text, None)
 
                 response_stream = start_response_stream(session)
