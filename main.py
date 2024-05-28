@@ -110,7 +110,7 @@ try:
         #start = input('Press any key to start')
         if wakeword_detector.process(frame):
         #if True:
-            wakeword_detector.cleanup()
+            audio.audio_stream.close()
             session = create_session()
             while True:
                 print('Prompting again')
@@ -123,8 +123,9 @@ try:
                 speak_response(response_stream)
 
                 print("\n\n")
-
-            wakeword_detector = Wakeword()
+            
+            audio.create_stream()
+            #wakeword_detector = Wakeword()
 except KeyboardInterrupt:
     print('Closing program...')
     wakeword_detector.cleanup()
