@@ -2,7 +2,6 @@ from modules import *
 import sounddevice as sd
 from playsounds import playsound
 import os
-import logging
 from dotenv import load_dotenv
 
 load_dotenv()
