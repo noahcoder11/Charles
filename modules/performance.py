@@ -1,5 +1,8 @@
 import time
 import functools
+from .logging import Logger
+
+logger = Logger(code='CHARLES')
 
 def performance_aware(performance_monitor, ):
     def decorator(func):
@@ -29,10 +32,10 @@ class PerformanceMonitor:
         return sum(self.durations[func_name]) / len(self.durations[func_name])
     
     def print_perf_analysis(self):
-        print('-------------------------')
-        print('Performance Analysis:')
+        logger.log('-------------------------')
+        logger.log('Performance Analysis:')
         for func_name in self.durations:
-            print(f'- {func_name} avg: {self.get_average_duration(func_name)}')
-            print('  - Individual Durations: ', self.durations[func_name])
-            print('\n')
-        print('-------------------------')
+            logger.log(f'- {func_name} avg: {self.get_average_duration(func_name)}')
+            logger.log('  - Individual Durations: ', self.durations[func_name])
+            logger.log('\n')
+        logger.log('-------------------------')

@@ -1,0 +1,14 @@
+[Unit]
+Description=Charles app
+
+[Service]
+WorkingDirectory=/home/admin/Charles
+ExecStart=/usr/bin/python3 /home/admin/Charles/main.py
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=charles
+
+[Install]
+WantedBy=multi-user.target

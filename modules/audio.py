@@ -21,7 +21,6 @@ class Audio:
         for i in range(self.py_audio.get_device_count()):
             dev = self.py_audio.get_device_info_by_index(i)
             if dev['maxInputChannels'] > 0:
-                print('Device:', dev)
                 return i
         
         raise Exception('No available audio device found')

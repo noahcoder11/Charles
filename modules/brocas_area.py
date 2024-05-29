@@ -16,11 +16,5 @@ class BrocasArea:
         self.tts = TextToAudioStream(self.engine, output_device_index=output_device_index, level=logging.DEBUG)
 
     def speak(self, text_stream):
-        print('Text Stream:', text_stream)
-
-        text = ''
-
         self.tts.feed(text_stream)
         self.tts.play()
-
-        print('Done Playing audio')

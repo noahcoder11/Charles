@@ -1,0 +1,14 @@
+[Unit]
+Description=Server that keeps the Charles system up to date and provides necessary logs
+
+[Service]
+WorkingDirectory=/home/admin/Charles/
+ExecStart=/usr/local/bin/flask --app /home/admin/Charles/build_server/server_main.py run --debug
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=charles-monitor
+
+[Install]
+WantedBy=multi-user.target
