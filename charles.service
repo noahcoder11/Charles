@@ -3,6 +3,7 @@ Description=Charles app
 
 [Service]
 WorkingDirectory=/home/admin/Charles
+Environment='PA_ALSA_PLUGHW=1'
 ExecStart=/usr/bin/python3 /home/admin/Charles/main.py
 Restart=always
 # Restart service after 10 seconds if the dotnet service crashes:
