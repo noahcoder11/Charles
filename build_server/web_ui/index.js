@@ -146,3 +146,10 @@ charlesLogsLoadable.loadWithPromise(async () => {
     console.log('Fetching logs')
     return await getRequest('/logs')
 })
+
+window.setInterval(() => {
+    charlesLogsLoadable.silentlyLoadWithPromise(async () => {
+        console.log('Fetching logs')
+        return await getRequest('/logs')
+    })
+}, 3000)
