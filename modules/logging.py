@@ -22,6 +22,9 @@ class Logger:
 
     def fetch_logs(self):
         data = ''
-        with open(self.path, 'r') as f:
-            data = f.read()
+        try:
+            with open(self.path, 'r') as f:
+                data = f.read()
+        except:
+            data = 'Empty log file.'
         return data

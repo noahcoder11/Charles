@@ -4,9 +4,6 @@ import json
 from .system_functions import * 
 import logging
 
-logger = logging.Logger(code='SERVER')
-logger.log('Server started')
-
 app = Flask(__name__, static_url_path='', static_folder='web_ui')
 
 def update_code():
@@ -43,6 +40,7 @@ def test_audio():
 
 @app.route('/')
 def index():
+    print(os.getcwd())
     return app.send_static_file('index.html')
 
 
