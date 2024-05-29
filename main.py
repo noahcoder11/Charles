@@ -2,9 +2,12 @@ from modules import *
 import sounddevice as sd
 from playsounds import playsound
 import os
+import logging
 from dotenv import load_dotenv
 
 load_dotenv()
+
+logger = logging.Logger(code='CHARLES')
 
 #Get environment variables
 CHOSEN_INPUT_DEVICE = int(os.environ.get('CHARLES_INPUT_AUDIO_DEVICE', 0))
@@ -54,6 +57,7 @@ def speak_response(response_stream):
 
 #Begin main program
 print('Beginning Charles')
+logger.log('Beginning Charles')
 playsound('sounds/Charles_Startup.wav', CHOSEN_OUTPUT_DEVICE)
 try:
     while True:
@@ -61,6 +65,7 @@ try:
         #start = input('Press any key to start')
         if wakeword_detector.process(frame):
         #if True:
+            logger.log('Wakeword detected')
             audio.audio_stream.close()
             session = create_session()
             while True:
