@@ -133,14 +133,35 @@ attachToLoadable('log-viewer', charlesLogsLoadable, {
     onLoading: (element) => element.innerHTML = centeredSpinner(),
     onError: (element, error) => element.innerHTML = `<p>Error: ${error}</p>`,
     onData: (element, data) => {
+        const currentLogEntries = document.getElementById('log-viewer').getElementsByClassName('charles-log-entries')
+        const newLogEntries = data.logs.split('\\n')
+
+        let startingIndex = 0
+        if (currentLogEntries.length > 0) {
+            startingIndex = newLogEntries.findIndex((entry, index) => entry !== currentLogEntries[index].innerHTML)
+        }
+
+        const entriesToAdd = newLogEntries.slice(startingIndex)
+
         const newContent = [ 
             div({ classes: ['uk-card', 'uk-card-secondary'], style: { boxShadow: 'none', border: 'none', marginTop: '0px' }, content: [
-                div({ classes: ['uk-card-body'], style: { overflowX: 'scroll' }, content: data.logs.split('\\n').map(log => pre({ classes: ['uk-text-left'], content: log }))})
+                div({ classes: ['uk-card-body', 'charles-log-entry'], style: { overflowX: 'scroll' }, content: entriesToAdd.map(log => pre({ classes: ['uk-text-left'], content: log }))})
             ]
             }) ] 
-        element.setChildren(newContent)
+
+        for (let i = startingIndex; i < currentLogEntries.length; i++) {
+            const entry = currentLogEntries[i]
+            entry.remove()
+        }
+
+        for (let i = 0; i < entriesToAdd.length; i++) {
+            const entry = entriesToAdd[i]
+            logViewerElement.appendChild(pre({ classes: ['uk-text-left'], content: entry }))
+        }
     }
 })
+
+const logViewerElement = div({ classes: ['uk-card', 'uk-card-secondary'], style: { boxShadow: 'none', border: 'none', marginTop: '0px' }, content: [] })
 
 charlesLogsLoadable.loadWithPromise(async () => {
     console.log('Fetching logs')
