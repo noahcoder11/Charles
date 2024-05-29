@@ -53,6 +53,7 @@ def speak_response(response_stream):
     brocas_area.speak(response_stream)
 
 #Begin main program
+print('Beginning Charles')
 playsound('sounds/Charles_Startup.wav', CHOSEN_OUTPUT_DEVICE)
 try:
     while True:
