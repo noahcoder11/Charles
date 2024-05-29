@@ -2,6 +2,10 @@ from flask import Flask, request
 import os
 import json
 from .system_functions import * 
+import logging
+
+logger = logging.Logger(code='SERVER')
+logger.log('Server started')
 
 app = Flask(__name__, static_url_path='', static_folder='web_ui')
 
