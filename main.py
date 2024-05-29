@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #Get environment variables
-CHOSEN_INPUT_DEVICE = os.environ.get('CHARLES_INPUT_AUDIO_DEVICE', 0)
-CHOSEN_OUTPUT_DEVICE = os.environ.get('CHARLES_OUTPUT_AUDIO_DEVICE', 0)
+CHOSEN_INPUT_DEVICE = int(os.environ.get('CHARLES_INPUT_AUDIO_DEVICE', 0))
+CHOSEN_OUTPUT_DEVICE = int(os.environ.get('CHARLES_OUTPUT_AUDIO_DEVICE', 0))
 
 sd.default.latency = 'low'
 
