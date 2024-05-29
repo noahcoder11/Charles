@@ -135,7 +135,7 @@ attachToLoadable('log-viewer', charlesLogsLoadable, {
     onData: (element, data) => {
         const newContent = [ 
             div({ classes: ['uk-card', 'uk-card-secondary'], style: { boxShadow: 'none', border: 'none', marginTop: '0px' }, content: [
-                div({ classes: ['uk-card-body'], content: data.logs.split('\\n').map(log => pre({ classes: ['uk-text-left'], content: log }))})
+                div({ classes: ['uk-card-body'], style: { overflowX: 'scroll' }, content: data.logs.split('\\n').map(log => pre({ classes: ['uk-text-left'], content: log }))})
             ]
             }) ] 
         element.setChildren(newContent)
