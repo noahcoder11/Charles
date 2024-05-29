@@ -43,4 +43,4 @@ def index():
 
 
 def run_server():
-    app.run(port=5000, host='127.0.0.1')
+    app.run(port=5000, host='0.0.0.0')
