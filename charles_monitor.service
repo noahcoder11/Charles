@@ -3,7 +3,7 @@ Description=Server that keeps the Charles system up to date and provides necessa
 
 [Service]
 WorkingDirectory=/home/admin/Charles/
-ExecStart=/usr/local/bin/flask --app /home/admin/Charles/build_server/server_main.py run --debug
+ExecStart=/usr/local/bin/flask --host=0.0.0.0 --app /home/admin/Charles/build_server/server_main.py run --debug
 Restart=always
 # Restart service after 10 seconds if the dotnet service crashes:
 RestartSec=10
