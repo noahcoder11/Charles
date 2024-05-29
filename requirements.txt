@@ -1,7 +1,7 @@
 python-dotenv
 requests
 anthropic
-openai
+openai==1.30.3
 SpeechRecognition
 soundfile
 pyaudio
