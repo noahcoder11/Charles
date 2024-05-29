@@ -76,7 +76,12 @@
             </div>
         </div>
         <div class='uk-width-2-3'>
-            <h2 class='uk-h2'>Logs</h2>
+            <div style='display: flex; flex-direction: row; width: 100%'>
+                <h2 class='uk-h2'>Logs</h2>
+                <div style='flex: 1;'></div>
+                <button class='uk-button uk-button-danger' id='clear-logs' onClick='clearLogs()'>Clear Logs</button>
+            </div>
+            
             <div class="uk-card uk-card-body uk-card-default" id='log-viewer'>
                 <div class='uk-card uk-card-secondary uk-card-body' style='box-shadow: none;border: none; margin-top: 0px;'>
 

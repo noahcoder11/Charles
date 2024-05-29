@@ -43,6 +43,10 @@ def index():
     print(os.getcwd())
     return app.send_static_file('index.html')
 
+@app.route('/clear-logs', methods=['POST'])
+def api_clear_logs():
+    clear_logs()
+    return json.dumps({})
 
 def run_server():
     app.run(port=5000, host='0.0.0.0')

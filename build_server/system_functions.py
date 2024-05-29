@@ -66,3 +66,7 @@ def test_output_audio(device_index):
 
 def get_logs():
     return logger.fetch_logs()
+
+def clear_logs():
+    logger.clear()
+    

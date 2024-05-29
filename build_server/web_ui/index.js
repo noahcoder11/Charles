@@ -153,3 +153,16 @@ window.setInterval(() => {
         return await getRequest('/logs')
     })
 }, 3000)
+
+
+const clearLogsLoadable = new Loadable('existing')
+const _clearLogs = async () => await postRequest('/clear-logs')
+const clearLogs = () => {
+    console.log('Clearing')
+    clearLogsLoadable.loadWithPromise(_clearLogs)
+} 
+attachToLoadable('clear-logs', clearLogsLoadable, {
+    onLoading: (element) => element.innerHTML = centeredSpinner(),
+    onError: (element, error) => element.innerHTML = `Clear Logs`,
+    onData: (element, data) => element.innerHTML = `Clear Logs`
+})
