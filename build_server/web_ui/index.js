@@ -134,6 +134,7 @@ attachToLoadable('log-viewer', charlesLogsLoadable, {
     onError: (element, error) => element.innerHTML = `<p>Error: ${error}</p>`,
     onData: (element, data) => {
         const currentLogEntries = document.getElementById('log-viewer').getElementsByClassName('charles-log-entries')
+        
         const newLogEntries = data.logs.split('\\n')
 
         let startingIndex = 0
@@ -159,7 +160,9 @@ attachToLoadable('log-viewer', charlesLogsLoadable, {
             logViewerElement.appendChild(pre({ classes: ['uk-text-left'], content: entry }))
         }
 
-        element.setChildren(newContent)
+        if (!element.contains(logViewerElement)) {
+            element.setChildren(newContent)
+        }
     }
 })
 
