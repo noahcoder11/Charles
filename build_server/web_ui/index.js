@@ -161,6 +161,7 @@ attachToLoadable('log-viewer', charlesLogsLoadable, {
         }
 
         if (!element.contains(logViewerElement)) {
+            console.log('Setting new content')
             element.setChildren(newContent)
         }
     }
