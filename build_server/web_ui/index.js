@@ -158,6 +158,9 @@ attachToLoadable('log-viewer', charlesLogsLoadable, {
             const entry = entriesToAdd[i]
             logViewerElement.appendChild(pre({ classes: ['uk-text-left'], content: entry }))
         }
+
+        element.innerHTML = ''
+        element.appendChild(logViewerElement)
     }
 })
 
