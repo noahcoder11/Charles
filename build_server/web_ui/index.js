@@ -145,7 +145,7 @@ attachToLoadable('log-viewer', charlesLogsLoadable, {
 
         const newContent = [ 
             div({ classes: ['uk-card', 'uk-card-secondary'], style: { boxShadow: 'none', border: 'none', marginTop: '0px' }, content: [
-                div({ classes: ['uk-card-body', 'charles-log-entry'], style: { overflowX: 'scroll' }, content: entriesToAdd.map(log => pre({ classes: ['uk-text-left'], content: log }))})
+                logViewerElement
             ]
             }) ] 
 
@@ -159,13 +159,11 @@ attachToLoadable('log-viewer', charlesLogsLoadable, {
             logViewerElement.appendChild(pre({ classes: ['uk-text-left'], content: entry }))
         }
 
-        element.innerHTML = ''
-        element.appendChild(logViewerElement)
+        element.setChildren(newContent)
     }
 })
 
-const logViewerElement = div({ classes: ['uk-card', 'uk-card-secondary'], style: { boxShadow: 'none', border: 'none', marginTop: '0px' }, content: [] })
-
+const logViewerElement = div({ classes: ['uk-card-body', 'charles-log-entry'], style: { overflowX: 'scroll' }, content: []})
 charlesLogsLoadable.loadWithPromise(async () => {
     console.log('Fetching logs')
     return await getRequest('/logs')
