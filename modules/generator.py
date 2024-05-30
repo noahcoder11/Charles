@@ -4,6 +4,9 @@ from openai.types.beta.threads import Text, TextDelta
 import config
 import threading
 import queue
+from .logging import Logger
+
+logger = Logger(code = 'CHARLES')
 
 class AISessionEventHandler(AssistantEventHandler):
     def __init__(self, on_response_begin=None, on_stream_data=None, on_stream_end=None):
@@ -22,10 +25,12 @@ class AISessionEventHandler(AssistantEventHandler):
     
     def on_text_delta(self, delta: TextDelta, snapshot: Text) -> None:
         self.queue.put(delta.value)
+        self.response += delta.value
         if self.on_stream_data is not None:
             self.on_stream_data(delta, snapshot)
 
     def on_end(self) -> None:
+        logger.log('Response: ' + self.response)
         self.finished.set()
         self.queue.put(None)
         if self.on_stream_end is not None:
