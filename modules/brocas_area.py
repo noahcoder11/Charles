@@ -12,7 +12,7 @@ class BrocasArea:
     def __init__(self, output_device_index=0):
         os.environ['OPENAI_API_KEY'] = config.PROJECT_CONFIG['OPENAI_API_KEY']
         self.client = OpenAI(api_key=config.PROJECT_CONFIG['OPENAI_API_KEY'])
-        self.engine = OpenAIEngine(voice='alloy')
+        self.engine = OpenAIEngine(voice='alloy', sample_rate=23000)
         self.tts = TextToAudioStream(self.engine, output_device_index=output_device_index, level=logging.DEBUG)
 
     def speak(self, text_stream):
