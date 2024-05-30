@@ -126,48 +126,27 @@ charlesConfigLoadable.loadWithPromise(async () => {
 
 
 
-
+const logViewerElement = div({ classes: ['uk-card-body', 'charles-log-entry'], style: { overflowX: 'scroll' }, content: []})
 
 const charlesLogsLoadable = new Loadable()
 attachToLoadable('log-viewer', charlesLogsLoadable, {
     onLoading: (element) => element.innerHTML = centeredSpinner(),
     onError: (element, error) => element.innerHTML = `<p>Error: ${error}</p>`,
-    onData: (element, data) => {
-        const currentLogEntries = document.getElementById('log-viewer').getElementsByClassName('charles-log-entries')
-        
+    onData: (element, data) => {        
         const newLogEntries = data.logs.split('\\n')
 
-        let startingIndex = 0
-        if (currentLogEntries.length > 0) {
-            startingIndex = newLogEntries.findIndex((entry, index) => entry !== currentLogEntries[index].innerHTML)
-        }
-
-        const entriesToAdd = newLogEntries.slice(startingIndex)
-
-        const newContent = [ 
+        let newContent = [ 
             div({ classes: ['uk-card', 'uk-card-secondary'], style: { boxShadow: 'none', border: 'none', marginTop: '0px' }, content: [
                 logViewerElement
-            ]
-            }) ] 
+            ]})
+        ] 
+        
+        logViewerElement.setChildren(newLogEntries.map(entry => pre({ classes: ['uk-text-left'], content: entry })))
 
-        for (let i = startingIndex; i < currentLogEntries.length; i++) {
-            const entry = currentLogEntries[i]
-            entry.remove()
-        }
-
-        for (let i = 0; i < entriesToAdd.length; i++) {
-            const entry = entriesToAdd[i]
-            logViewerElement.appendChild(pre({ classes: ['uk-text-left'], content: entry }))
-        }
-
-        if (!element.contains(logViewerElement)) {
-            console.log('Setting new content')
-            element.setChildren(newContent)
-        }
+        element.setChildren(newContent)
     }
 })
 
-const logViewerElement = div({ classes: ['uk-card-body', 'charles-log-entry'], style: { overflowX: 'scroll' }, content: []})
 charlesLogsLoadable.loadWithPromise(async () => {
     console.log('Fetching logs')
     return await getRequest('/logs')
